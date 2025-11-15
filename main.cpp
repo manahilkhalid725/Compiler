@@ -1,5 +1,6 @@
 #include "scope_analyzer.h"
 #include "parser.h"
+#include "type_checker.h"
 #include <iostream>
 #include <string>
 
@@ -12,10 +13,12 @@ int main() {
             bool flag = true;
             sum++;
             ratio = sum / 2.0;
-            if (sum > 10 || flag) {
+            if (sum > 10 || flag) 
+            {
                 ratio--;
                 return sum;
-            } else {
+            } else 
+            {
                 return 0;
             }
         }
@@ -33,12 +36,11 @@ int main() {
         ScopeAnalyzer sa;
         sa.analyze(ast);
         std::cout << "\n No scope errors detected.\n";
-    }
-    catch (const ScopeException& e) {
-        std::cerr << "Scope Error: " << e.what() << std::endl;
-    }
-    catch (const ParseError& e) {
-        std::cerr << "Parse Error: " << e.what() << std::endl;
+
+        std::cout << "Performing Type Checking \n";
+        TypeChecker tc;
+        tc.analyze(ast);
+        std::cout << "\n No type errors detected.\n";
     }
     catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;

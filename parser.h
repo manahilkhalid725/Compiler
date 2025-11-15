@@ -49,6 +49,7 @@ private:
             throw ParseError("ExpectedIdentifier");
 
         fnNode->addChild(std::make_shared<ASTNode>("Name", current.val));
+        fnNode->val = current.val;  // FIX: store function name in val
         next();
 
         expect("T_PARENL");
@@ -75,7 +76,9 @@ private:
             std::string name = current.val;
             next();
 
-            params->addChild(std::make_shared<ASTNode>("Param", name));
+            auto paramNode = std::make_shared<ASTNode>("Param", name);
+            paramNode->addChild(std::make_shared<ASTNode>("Type", type));
+            params->addChild(paramNode);
 
             if (current.kind == "T_COMMA") next();
             else break;
@@ -106,7 +109,6 @@ private:
 
     std::shared_ptr<ASTNode> parseVarDecl() {
         std::string varName;
-
         auto typeNode = std::make_shared<ASTNode>("Type", current.val);
         next();
 
@@ -229,5 +231,4 @@ private:
 
         return node;
     }
-
 };
