@@ -1,0 +1,23 @@
+fn int calculate(int a, int b)
+{
+    int sum = a + b;
+    float ratio = 0.0;
+    bool flag = true;
+    sum++;
+    ratio = sum / 2.0;
+    if (sum > 10 || flag) 
+    {
+        ratio--;
+        return sum;
+    } 
+    else 
+    {
+        return 0;
+    }
+}
+
+fn int subtract(int a, int b)
+{
+    int result = a - b;
+    return result;
+}
